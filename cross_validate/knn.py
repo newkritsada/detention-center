@@ -15,7 +15,7 @@ x_test = dataAsset.data_frame1
 
 le = preprocessing.LabelEncoder()
 for col in data_train.loc[1:]:
-    data_train[col] = le.fit_transform(data[col])
+    data_train[col] = le.fit_transform(data_train[col])
 
 XX = pd.DataFrame(data_train, columns=dataAsset.feature)
 yy = pd.DataFrame(data_train['ครั้งที่กระทำความผิด'])
