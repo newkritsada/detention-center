@@ -12,10 +12,6 @@ print('\n\n===== k-Nearest Neighbors =====\n\n')
 
 data = dataAsset.data_frame
 
-le = preprocessing.LabelEncoder()
-for col in data.loc[1:]:
-    data[col] = le.fit_transform(data[col])
-
 XX = pd.DataFrame(data, columns=dataAsset.feature)
 yy = pd.DataFrame(data['ครั้งที่กระทำความผิด'])
 
@@ -23,24 +19,25 @@ yy = pd.DataFrame(data['ครั้งที่กระทำความผ�
 X_train, X_test, y_train, y_test = train_test_split(
     XX, yy, test_size=0.3, random_state=45)
 
-# test_ids = X_test.index.tolist()
-# X_test['CMST_CASE_JUVENILE_REF'] = test_ids
 
-y_train = np.ravel(y_train)
-knn = KNeighborsClassifier(n_neighbors=3)
-knn.fit(X_train, y_train)
-predictions = knn.predict(X_test)
+def knn_predict(x_train, x_test, y_train, y_test):
+    y_train = np.ravel(y_train)
+    knn = KNeighborsClassifier(n_neighbors=3)
+    knn.fit(x_train, y_train)
+    predictions = knn.predict(x_test)
 
-# dump(knn, './model/knn_model.joblib')
+    accuracy_train = knn.score(x_train, y_train)*100
+    accuracy_test = knn.score(x_test, y_test)*100
+    predict = predictions
+    predict_len = len(predictions)
 
-# predictions_string = le.inverse_transform(predictions)
-# print(predictions_string)
-# results = pd.DataFrame({'CMST_CASE_JUVENILE_REF': test_ids, 'Prediction': predictions_string})
-# print(results)
+    # =============================
+    print('The accuracy training data is {:.2f}%'.format(accuracy_train))
+    print('The accuracy on test data is {:.2f}%'.format(
+        accuracy_test))
+    print('Predictions: {}, {} data'.format(predict, predict_len))
 
-# =============================
-print('The accuracy training data is {:.2f}%'.format(
-    knn.score(X_train, y_train)*100))
-print('The accuracy on test data is {:.2f}%'.format(
-    knn.score(X_test, y_test)*100))
-print('Predictions: {}, {} data'.format(predictions, len(predictions)))
+    return accuracy_train, accuracy_test, predict, predict_len
+
+
+knn_predict(X_train, X_test, y_train, y_test)
