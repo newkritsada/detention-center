@@ -1,9 +1,6 @@
 import numpy as np
 import pandas as pd
-import seaborn as sns
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import train_test_split
-from sklearn import preprocessing
 # from joblib import dump
 
 from dataAsset import feature, data_frame1, data_frame2, data_frame3, data_frame4, data_frame5, DataExcept1, DataExcept2, DataExcept3, DataExcept4, DataExcept5
