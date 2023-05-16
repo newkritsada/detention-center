@@ -23,10 +23,6 @@ yy = pd.DataFrame(data['ครั้งที่กระทำความผ�
 X_train, X_test, y_train, y_test = train_test_split(
     XX, yy, test_size=0.3, random_state=45)
 
-print("X TRAIN => \n", X_train)
-print("YY => \n", yy)
-print("Y TRAIN => \n", y_train)
-
 # test_ids = X_test.index.tolist()
 # X_test['CMST_CASE_JUVENILE_REF'] = test_ids
 
