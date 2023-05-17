@@ -24,7 +24,7 @@ X_new = data_asset.Chi(XX, yy)
 x_train, x_test, y_train, y_test = train_test_split(
     X_new, yy, test_size=0.3, random_state=45)
 
-accuracy_train, accuracy_test, predict, predict_len = knn_predict(
+accuracy_train, accuracy_test, predict, predict_len, training_time, testing_time = knn_predict(
     x_train, x_test, y_train, y_test)
 
 print(classification_report(y_test, predict))
