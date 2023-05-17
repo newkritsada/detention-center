@@ -2,6 +2,7 @@ import time
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import tree
+import tensorflow as tf
 
 
 def knn_predict(x_train, x_test, y_train, y_test):
@@ -34,6 +35,7 @@ def knn_predict(x_train, x_test, y_train, y_test):
 
     return accuracy_train, accuracy_test, predict, predict_len, training_time, testing_time
 
+
 def dicision_tree_predict(x_train, x_test, y_train, y_test):
     # Create tree object
     decision_tree = tree.DecisionTreeClassifier(criterion='gini')
@@ -63,6 +65,7 @@ def dicision_tree_predict(x_train, x_test, y_train, y_test):
     print("Testing time:", testing_time)
 
     return accuracy_train, accuracy_test, predict, predict_len, training_time, testing_time
+
 
 def neural_network_predict(x_train, x_test, y_train, y_test):
     start_train_time = time.time()
@@ -103,4 +106,4 @@ def neural_network_predict(x_train, x_test, y_train, y_test):
     print("Training time:", training_time)
     print("Testing time:", testing_time)
 
-    return accuracy_train, accuracy_test, predict, predict_len
+    return accuracy_train, accuracy_test, predict, predict_len, training_time, testing_time
