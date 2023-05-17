@@ -6,11 +6,11 @@ from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 from sklearn.metrics import classification_report, confusion_matrix
 
-import dataAsset
+import data_asset
 
 print('\n\n===== k-Nearest Neighbors =====\n\n')
 
-data = dataAsset.data_frame
+data = data_asset.data_frame
 
 le = preprocessing.LabelEncoder()
 for col in data.loc[1:]:
@@ -20,8 +20,9 @@ XX = data.drop(['CMST_CASE_JUVENILE_REF', 'ครั้งที่กระท�
 yy = data['ครั้งที่กระทำความผิด']
 # XX = (XX - XX.mean()) / XX.std()
 
-# Perform feature selection using chi-square test
-X_new = dataAsset.Chi(XX,yy)
+# Perform feature selection using Recursive feature test
+X_new = data_asset.Mutual(XX,yy)
+
 
 x_train, x_test, y_train, y_test = train_test_split(
     X_new, yy, test_size=0.3, random_state=45)

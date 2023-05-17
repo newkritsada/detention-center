@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 # from joblib import dump
 
-from dataAsset import feature, data_frame1, data_frame2, data_frame3, data_frame4, data_frame5, DataExcept1, DataExcept2, DataExcept3, DataExcept4, DataExcept5
+from data_asset import feature, data_frame1, data_frame2, data_frame3, data_frame4, data_frame5, DataExcept1, DataExcept2, DataExcept3, DataExcept4, DataExcept5
 
 
 def knn_predict(x_train, x_test, y_train, y_test):

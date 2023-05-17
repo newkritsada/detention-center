@@ -6,18 +6,18 @@ import tensorflow as tf
 from sklearn import preprocessing
 
 
-import dataAsset
+import data_asset
 
 print('\n\n===== Neural Network =====\n\n')
 # print('dataAsset',dataAsset)
 
-data = dataAsset.data_frame
+data = data_asset.data_frame
 
 le = preprocessing.LabelEncoder()
 for col in data.loc[1:]:
     data[col] = le.fit_transform(data[col])
 
-XX = pd.DataFrame(data, columns=dataAsset.feature)
+XX = pd.DataFrame(data, columns=data_asset.feature)
 yy = pd.DataFrame(data['ครั้งที่กระทำความผิด'])
 
 
@@ -26,8 +26,8 @@ x_train, x_test, y_train, y_test = train_test_split(
 
 
 # Reshape data for CNN
-x_train = x_train.values.reshape(-1, len(dataAsset.feature), 1)
-x_test = x_test.values.reshape(-1, len(dataAsset.feature), 1)
+x_train = x_train.values.reshape(-1, len(data_asset.feature), 1)
+x_test = x_test.values.reshape(-1, len(data_asset.feature), 1)
 
 # Convert labels to one-hot encoding
 y_train = tf.keras.utils.to_categorical(y_train, num_classes=2)

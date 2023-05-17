@@ -11,17 +11,17 @@ from IPython.display import Image
 from sklearn.tree import export_graphviz
 import pydotplus
 
-import dataAsset
+import data_asset
 
 print('\n\n===== Dicision Tree =====\n\n')
 
-data = dataAsset.data_frame
+data = data_asset.data_frame
 
 le = preprocessing.LabelEncoder()
 for col in data.loc[1:]:
     data[col] = le.fit_transform(data[col])
 
-XX = pd.DataFrame(data, columns=dataAsset.feature)
+XX = pd.DataFrame(data, columns=data_asset.feature)
 yy = pd.DataFrame(data['ครั้งที่กระทำความผิด'])
 
 

@@ -12,7 +12,7 @@ from IPython.display import Image
 from sklearn.tree import export_graphviz
 import pydotplus
 
-import dataAsset
+import data_asset
 
 
 def dicision_tree_predict(x_train, x_test, y_train, y_test):
@@ -47,9 +47,9 @@ def dicision_tree_predict(x_train, x_test, y_train, y_test):
 
 print('\n\n===== Dicision Tree =====\n\n')
 
-data = dataAsset.data_frame
+data = data_asset.data_frame
 
-XX = pd.DataFrame(data, columns=dataAsset.feature)
+XX = pd.DataFrame(data, columns=data_asset.feature)
 yy = pd.DataFrame(data['ครั้งที่กระทำความผิด'])
 
 
