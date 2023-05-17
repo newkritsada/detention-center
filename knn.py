@@ -8,18 +8,6 @@ from sklearn import preprocessing
 
 import dataAsset
 
-print('\n\n===== k-Nearest Neighbors =====\n\n')
-
-data = dataAsset.data_frame
-
-XX = pd.DataFrame(data, columns=dataAsset.feature)
-yy = pd.DataFrame(data['ครั้งที่กระทำความผิด'])
-
-
-x_train, x_test, y_train, y_test = train_test_split(
-    XX, yy, test_size=0.3, random_state=45)
-
-
 def knn_predict(x_train, x_test, y_train, y_test):
     y_train = np.ravel(y_train)
     knn = KNeighborsClassifier(n_neighbors=3)
@@ -39,5 +27,15 @@ def knn_predict(x_train, x_test, y_train, y_test):
 
     return accuracy_train, accuracy_test, predict, predict_len
 
+print('\n\n===== k-Nearest Neighbors =====\n\n')
+
+data = dataAsset.data_frame
+
+XX = pd.DataFrame(data, columns=dataAsset.feature)
+yy = pd.DataFrame(data['ครั้งที่กระทำความผิด'])
+
+
+x_train, x_test, y_train, y_test = train_test_split(
+    XX, yy, test_size=0.3, random_state=45)
 
 knn_predict(x_train, x_test, y_train, y_test)
