@@ -65,7 +65,6 @@ feature = [
 def DataExcept1():
     return pd.concat([data_frame2, data_frame3, data_frame4, data_frame5])
 
-
 def DataExcept2():
     return pd.concat([data_frame1, data_frame3, data_frame4, data_frame5])
 

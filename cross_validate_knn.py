@@ -4,7 +4,7 @@ import pandas as pd
 
 from data_asset import feature, data_frame1, data_frame2, data_frame3, data_frame4, data_frame5, DataExcept1, DataExcept2, DataExcept3, DataExcept4, DataExcept5
 
-from knn import knn_predict
+from model import knn_predict
 
 
 print('\n\n===== k-Nearest Neighbors (cross validate)=====\n\n')

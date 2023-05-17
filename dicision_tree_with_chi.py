@@ -4,7 +4,7 @@ from sklearn import preprocessing
 
 
 import data_asset
-from dicision_tree import dicision_tree_predict
+from model import dicision_tree_predict
 
 print('\n\n===== Dicision Tree =====\n\n')
 

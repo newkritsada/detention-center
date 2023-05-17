@@ -3,7 +3,7 @@ from sklearn import preprocessing
 from sklearn.metrics import classification_report, confusion_matrix
 
 import data_asset
-from knn import knn_predict
+from model import knn_predict
 
 
 print('\n\n===== k-Nearest Neighbors =====\n\n')

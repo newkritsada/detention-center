@@ -6,7 +6,7 @@ from sklearn import tree
 
 from data_asset import feature, data_frame1, data_frame2, data_frame3, data_frame4, data_frame5, DataExcept1, DataExcept2, DataExcept3, DataExcept4, DataExcept5
 
-from dicision_tree import dicision_tree_predict
+from model import dicision_tree_predict
 
 
 print('\n\n===== Dicision Tree (cross validate)=====\n\n')
