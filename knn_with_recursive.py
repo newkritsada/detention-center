@@ -1,12 +1,10 @@
-import os
-import numpy as np
-import pandas as pd
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 from sklearn.metrics import classification_report, confusion_matrix
 
 import data_asset
+from knn import knn_predict
+
 
 print('\n\n===== k-Nearest Neighbors =====\n\n')
 
@@ -27,19 +25,8 @@ X_new = data_asset.Mutual(XX,yy)
 x_train, x_test, y_train, y_test = train_test_split(
     X_new, yy, test_size=0.3, random_state=45)
 
-y_train = np.ravel(y_train)
-knn = KNeighborsClassifier(n_neighbors=3)
-knn.fit(x_train, y_train)
-predictions = knn.predict(x_test)
-predictions_string = le.inverse_transform(predictions)
+accuracy_train, accuracy_test, predict, predict_len = knn_predict(
+    x_train, x_test, y_train, y_test)
 
-
-# =============================
-print('The accuracy training data is {:.2f}%'.format(
-    knn.score(x_train, y_train)*100))
-print('The accuracy on test data is {:.2f}%'.format(
-    knn.score(x_test, y_test)*100))
-print('Predictions: {}, {} data'.format(predictions, len(predictions)))
-
-print(classification_report(y_test, predictions))
-print(confusion_matrix(y_test, predictions))
+print(classification_report(y_test, predict))
+print(confusion_matrix(y_test, predict))

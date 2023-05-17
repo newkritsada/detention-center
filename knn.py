@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 
 import data_asset
 
+
 def knn_predict(x_train, x_test, y_train, y_test):
     y_train = np.ravel(y_train)
     knn = KNeighborsClassifier(n_neighbors=3)
@@ -35,7 +36,8 @@ def knn_predict(x_train, x_test, y_train, y_test):
     print("Training time:", training_time)
     print("Testing time:", testing_time)
 
-    return accuracy_train, accuracy_test, predict, predict_len
+    return accuracy_train, accuracy_test, predict, predict_len, training_time, testing_time
+
 
 print('\n\n===== k-Nearest Neighbors =====\n\n')
 

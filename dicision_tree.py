@@ -1,16 +1,7 @@
 import time
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 from sklearn import tree
-from sklearn import preprocessing
-
-
-from six import StringIO
-from IPython.display import Image
-from sklearn.tree import export_graphviz
-import pydotplus
 
 import data_asset
 
@@ -39,10 +30,11 @@ def dicision_tree_predict(x_train, x_test, y_train, y_test):
     print('The accuracy on training data is {:.2f}%'.format(accuracy_train))
     print('The accuracy on test data is {:.2f}%'.format(accuracy_test))
     print('Predictions: {}, {} data'.format(predict, predict_len))
+
     print("Training time:", training_time)
     print("Testing time:", testing_time)
 
-    return accuracy_train, accuracy_test, predict, predict_len
+    return accuracy_train, accuracy_test, predict, predict_len, training_time, testing_time
 
 
 print('\n\n===== Dicision Tree =====\n\n')
