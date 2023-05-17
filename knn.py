@@ -16,7 +16,7 @@ XX = pd.DataFrame(data, columns=dataAsset.feature)
 yy = pd.DataFrame(data['ครั้งที่กระทำความผิด'])
 
 
-X_train, X_test, y_train, y_test = train_test_split(
+x_train, x_test, y_train, y_test = train_test_split(
     XX, yy, test_size=0.3, random_state=45)
 
 
@@ -40,4 +40,4 @@ def knn_predict(x_train, x_test, y_train, y_test):
     return accuracy_train, accuracy_test, predict, predict_len
 
 
-knn_predict(X_train, X_test, y_train, y_test)
+knn_predict(x_train, x_test, y_train, y_test)

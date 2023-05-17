@@ -23,21 +23,21 @@ yy = data['ครั้งที่กระทำความผิด']
 # Perform feature selection using chi-square test
 X_new = dataAsset.Chi(XX,yy)
 
-X_train, X_test, y_train, y_test = train_test_split(
+x_train, x_test, y_train, y_test = train_test_split(
     X_new, yy, test_size=0.3, random_state=45)
 
 y_train = np.ravel(y_train)
 knn = KNeighborsClassifier(n_neighbors=3)
-knn.fit(X_train, y_train)
-predictions = knn.predict(X_test)
+knn.fit(x_train, y_train)
+predictions = knn.predict(x_test)
 predictions_string = le.inverse_transform(predictions)
 
 
 # =============================
 print('The accuracy training data is {:.2f}%'.format(
-    knn.score(X_train, y_train)*100))
+    knn.score(x_train, y_train)*100))
 print('The accuracy on test data is {:.2f}%'.format(
-    knn.score(X_test, y_test)*100))
+    knn.score(x_test, y_test)*100))
 print('Predictions: {}, {} data'.format(predictions, len(predictions)))
 
 print(classification_report(y_test, predictions))
