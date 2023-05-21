@@ -128,9 +128,6 @@ def formatDataset(colForConverstToInt):
     print("\nChange value to number with auto map success!\n\n")
     return new_data_frame
 
-# Feature selection
-
-
 def Chi(x, y):
     k = 7
     selector = SelectKBest(score_func=chi2, k=k)
