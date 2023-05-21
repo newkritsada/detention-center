@@ -1,33 +1,21 @@
 import pandas as pd
 from imblearn.over_sampling import SMOTE
-from sklearn import preprocessing
 
-data = pd.read_csv("../Data/clean/clean.csv", encoding="TIS-620")
-le = preprocessing.LabelEncoder()
-for col in data:
-    data[col] = le.fit_transform(data[col])
-#แยกminor/major
-minority_data = data[data['ครั้งที่กระทำความผิด'] == 'กระทำผิดซ้ำ']
-majority_data = data[data['ครั้งที่กระทำความผิด'] == 'ครั้งแรก']
+# อ่านข้อมูลจากไฟล์ CSV
+data = pd.read_csv('original_dataset.csv')
 
-# featureslist
-features = ['ฐานความผิดหลัก', 'ฐานความผิดข้อหา', 'อายุขณะกระทำความผิด', 'อัตราโทษ', 'กลุ่มASSIST', 'Risk' ,  'Need']
+# แยกข้อมูลเชิงปริมาณและเป้าหมาย
+X = data.drop(['repeated'], axis=1)
+y = data['repeated']
 
-# Separate the features from the target variable for both minority and majority classes
-minority_features = minority_data[features]
-minority_target = minority_data['ครั้งที่กระทำความผิด']
-majority_features = majority_data[features]
-majority_target = majority_data['ครั้งที่กระทำความผิด']
-
+# สร้างตัวแปรสำหรับใช้งาน SMOTE
 smote = SMOTE()
-oversampled_minority_features, oversampled_minority_target = smote.fit_resample(minority_features, minority_target)
 
+# ใช้งาน SMOTE เพื่อขยายข้อมูล
+X_resampled, y_resampled = smote.fit_resample(X, y)
 
-balanced_features = pd.concat([oversampled_minority_features, majority_features])
-balanced_target = pd.concat([oversampled_minority_target, majority_target])
+# สร้าง DataFrame ของข้อมูลที่ขยายแล้ว
+resampled_data = pd.concat([pd.DataFrame(X_resampled), pd.Series(y_resampled, name='ครั้งที่กระทำความผิด')], axis=1)
 
-# รวมDataFrameใหม่
-balanced_data = pd.concat([balanced_features, balanced_target], axis=1)
-
-
-balanced_data.to_csv('balanced_data.csv', index=False)
+# บันทึกข้อมูลที่ขยายแล้วเป็นไฟล์ CSV
+resampled_data.to_csv('smote_dataset.csv', index=False)
