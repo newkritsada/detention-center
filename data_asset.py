@@ -5,16 +5,31 @@ from sklearn.linear_model import LogisticRegression
 from sklearn import preprocessing
 
 
-outdir = './cleanData'
 le = preprocessing.LabelEncoder()
+
+outdir = './cleanData'
+original_file_name = 'original_dateset.csv'
 
 colForConverstToInt = [
     'ฐานความผิดหลัก',
     'ฐานความผิดข้อหา',
     'ครั้งที่กระทำความผิด',  # target
     'อัตราโทษ',
-    'กลุ่มASSIST'
+    'กลุ่มASSIST',
+    'SPECIAL_RN'
 ]
+
+feature = [
+    # 'CMST_CASE_JUVENILE_REF',
+    'ฐานความผิดหลัก',
+    'ฐานความผิดข้อหา',
+    'อายุขณะกระทำความผิด',
+    'อัตราโทษ',
+    'กลุ่มASSIST',
+    'Risk',
+    'Need',
+]
+
 # data_frame.loc[:, colForConverstToInt]
 
 # clean data
@@ -50,20 +65,10 @@ for col in data_frame5.loc[:, colForConverstToInt]:
 
 #column = CMST_CASE_JUVENILE_REF, ฐานความผิดหลัก, ฐานความผิดข้อหา, ครั้งที่กระทำความผิด, อายุขณะกระทำความผิด, อัตราโทษ, กลุ่มASSIST, Risk, Need, SPECIAL_RN
 
-feature = [
-    # 'CMST_CASE_JUVENILE_REF',
-    'ฐานความผิดหลัก',
-    'ฐานความผิดข้อหา',
-    'อายุขณะกระทำความผิด',
-    'อัตราโทษ',
-    'กลุ่มASSIST',
-    'Risk',
-    'Need',
-]
-
 
 def DataExcept1():
     return pd.concat([data_frame2, data_frame3, data_frame4, data_frame5])
+
 
 def DataExcept2():
     return pd.concat([data_frame1, data_frame3, data_frame4, data_frame5])
@@ -85,7 +90,10 @@ def createOriginalDataSet():
     if not os.path.exists(outdir):
         os.mkdir(outdir)
     data_frame.loc[:, ].to_csv(
-        '{}/{}'.format(outdir, 'original_dateset.csv'), index=False)
+        '{}/{}'.format(outdir, original_file_name), index=False)
+
+
+createOriginalDataSet()
 
 
 def formatDataset(colForConverstToInt):
