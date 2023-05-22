@@ -29,7 +29,7 @@ def knn_predict(x_train, x_test, y_train, y_test):
     print('The accuracy on test data is {:.2f}%'.format(
         accuracy_test))
     print('Predictions: {}, {} data'.format(predict, predict_len))
-
+    print('\n')
     print("Training time:", training_time)
     print("Testing time:", testing_time)
 
@@ -60,18 +60,18 @@ def dicision_tree_predict(x_train, x_test, y_train, y_test):
     print('The accuracy on training data is {:.2f}%'.format(accuracy_train))
     print('The accuracy on test data is {:.2f}%'.format(accuracy_test))
     print('Predictions: {}, {} data'.format(predict, predict_len))
-
+    print('\n')
     print("Training time:", training_time)
     print("Testing time:", testing_time)
 
     return accuracy_train, accuracy_test, predict, predict_len, training_time, testing_time
 
 
-def neural_network_predict(x_train, x_test, y_train, y_test):
+def neural_network_predict(x_train, x_test, y_train, y_test,shape):
     start_train_time = time.time()
     model = tf.keras.Sequential([
         tf.keras.layers.Dense(100, activation=tf.nn.relu,
-                              input_shape=(7,)),  # input shape required
+                              input_shape=(shape,)),  # input shape required
         tf.keras.layers.Dense(100, activation=tf.nn.relu),
         tf.keras.layers.Dense(100, activation=tf.nn.relu),
         tf.keras.layers.Dense(2, activation=tf.nn.softmax)
@@ -102,7 +102,7 @@ def neural_network_predict(x_train, x_test, y_train, y_test):
 
     # Make predictions on test data
     print('Predictions: {}, {} data'.format(predictions, len(predictions)))
-
+    print('\n')
     print("Training time:", training_time)
     print("Testing time:", testing_time)
 
