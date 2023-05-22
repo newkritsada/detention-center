@@ -28,13 +28,4 @@ x_test = x_test.values.reshape(-1, len(data_asset.feature), 1)
 y_train = tf.keras.utils.to_categorical(y_train, num_classes=2)
 y_test = tf.keras.utils.to_categorical(y_test, num_classes=2)
 
-
-model = tf.keras.Sequential([
-    tf.keras.layers.Dense(100, activation=tf.nn.relu,
-                          input_shape=(7,)),  # input shape required
-    tf.keras.layers.Dense(100, activation=tf.nn.relu),
-    tf.keras.layers.Dense(100, activation=tf.nn.relu),
-    tf.keras.layers.Dense(2, activation=tf.nn.softmax)
-])
-
-neural_network_predict(x_train, x_test, y_train, y_test)
+neural_network_predict(x_train, x_test, y_train, y_test,len(data_asset.feature))
