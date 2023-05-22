@@ -1,13 +1,12 @@
 import pandas as pd
 import os
-from sklearn.feature_selection import SelectKBest, chi2, mutual_info_classif, RFE
-from sklearn.linear_model import LogisticRegression
+
 from sklearn import preprocessing
 
 
 le = preprocessing.LabelEncoder()
 
-outdir = './cleanData'
+outdir = './temp_data'
 original_file_name = 'original_dateset.csv'
 
 colForConverstToInt = [
@@ -20,7 +19,6 @@ colForConverstToInt = [
 ]
 
 feature = [
-    # 'CMST_CASE_JUVENILE_REF',
     'ฐานความผิดหลัก',
     'ฐานความผิดข้อหา',
     'อายุขณะกระทำความผิด',
@@ -28,6 +26,8 @@ feature = [
     'กลุ่มASSIST',
     'Risk',
     'Need',
+    'SPECIAL_RN'
+
 ]
 
 # data_frame.loc[:, colForConverstToInt]
@@ -39,27 +39,27 @@ for col in data_frame.loc[:, colForConverstToInt]:
 
 # clean and balance data
 data_frame1 = pd.read_csv(
-    "../Data/clean/split_data/data1.csv", encoding="TIS-620")
+    "../Data/clean/split_under_data/under_01.csv", encoding="TIS-620")
 for col in data_frame1.loc[:, colForConverstToInt]:
     data_frame1[col] = le.fit_transform(data_frame1[col])
 
 data_frame2 = pd.read_csv(
-    "../Data/clean/split_data/data2.csv", encoding="TIS-620")
+    "../Data/clean/split_under_data/under_02.csv", encoding="TIS-620")
 for col in data_frame2.loc[:, colForConverstToInt]:
     data_frame2[col] = le.fit_transform(data_frame2[col])
 
 data_frame3 = pd.read_csv(
-    "../Data/clean/split_data/data3.csv", encoding="TIS-620")
+    "../Data/clean/split_under_data/under_03.csv", encoding="TIS-620")
 for col in data_frame3.loc[:, colForConverstToInt]:
     data_frame3[col] = le.fit_transform(data_frame3[col])
 
 data_frame4 = pd.read_csv(
-    "../Data/clean/split_data/data4.csv", encoding="TIS-620")
+    "../Data/clean/split_under_data/under_04.csv", encoding="TIS-620")
 for col in data_frame4.loc[:, colForConverstToInt]:
     data_frame4[col] = le.fit_transform(data_frame4[col])
 
 data_frame5 = pd.read_csv(
-    "../Data/clean/split_data/data5.csv", encoding="TIS-620")
+    "../Data/clean/split_under_data/under_05.csv", encoding="TIS-620")
 for col in data_frame5.loc[:, colForConverstToInt]:
     data_frame5[col] = le.fit_transform(data_frame5[col])
 
@@ -86,14 +86,11 @@ def DataExcept5():
     return pd.concat([data_frame1, data_frame2, data_frame3, data_frame4])
 
 
-def createOriginalDataSet():
+def createDataSetFile(data,file_name):
     if not os.path.exists(outdir):
         os.mkdir(outdir)
-    data_frame.loc[:, ].to_csv(
-        '{}/{}'.format(outdir, original_file_name), index=False)
-
-
-createOriginalDataSet()
+    data.loc[:, ].to_csv(
+        '{}/{}'.format(outdir, file_name), index=False)
 
 
 def formatDataset(colForConverstToInt):
@@ -128,26 +125,3 @@ def formatDataset(colForConverstToInt):
     print("\nChange value to number with auto map success!\n\n")
     return new_data_frame
 
-def Chi(x, y):
-    k = 7
-    selector = SelectKBest(score_func=chi2, k=k)
-    X_new = selector.fit_transform(x, y)
-
-    return X_new
-
-
-def Mutual(x, y):
-    k = 7
-    selector = SelectKBest(score_func=mutual_info_classif, k=k)
-    X_new = selector.fit_transform(x, y)
-
-    return X_new
-
-
-def Recursive(x, y):
-    k = 7
-    estimator = LogisticRegression()
-    rfe = RFE(estimator, n_features_to_select=k)
-    X_new = rfe.fit_transform(x, y)
-
-    return X_new
