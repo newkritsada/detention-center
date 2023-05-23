@@ -32,15 +32,8 @@ def cross_validate_neural_network(data_trains,data_tests,feature_function):
         shape = len(x_test_new[0])
         x_test_new = pd.DataFrame(x_test_new)
 
-        # Reshape data for CNN
-        x_train_new = x_train_new.values.reshape(-1, shape, 1)
-        x_test_new = x_test_new.values.reshape(-1, shape, 1)
-
-        # Convert labels to one-hot encoding
-        y_train = tf.keras.utils.to_categorical(y_train, num_classes=2)
-        y_test = tf.keras.utils.to_categorical(y_test, num_classes=2)
         
-        accuracy_train, accuracy_test, predict, predict_len, training_time, testing_time = neural_network_predict(
+        accuracy_train, accuracy_test, precision, recall, predict, predict_len, training_time, testing_time = neural_network_predict(
             x_train_new, x_test_new, y_train, y_test, shape)
 
         accuracy_train_sum += accuracy_train

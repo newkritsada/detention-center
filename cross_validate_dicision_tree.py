@@ -25,7 +25,7 @@ for index, data_train in enumerate(data_trains):
 
     x_test = pd.DataFrame(data_tests[index], columns=feature)
     y_test = pd.DataFrame(data_tests[index]['ครั้งที่กระทำความผิด'])
-    accuracy_train, accuracy_test, predict, predict_len, training_time, testing_time = dicision_tree_predict(
+    accuracy_train, accuracy_test, precision, recall, predict, predict_len, training_time, testing_time = dicision_tree_predict(
         x_train, x_test, y_train, y_test)
 
     accuracy_train_sum += accuracy_train

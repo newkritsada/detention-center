@@ -19,13 +19,4 @@ yy = pd.DataFrame(data['ครั้งที่กระทำความผ�
 x_train, x_test, y_train, y_test = train_test_split(
     XX, yy, test_size=0.3, random_state=45)
 
-
-# Reshape data for CNN
-x_train = x_train.values.reshape(-1, len(data_asset.feature), 1)
-x_test = x_test.values.reshape(-1, len(data_asset.feature), 1)
-
-# Convert labels to one-hot encoding
-y_train = tf.keras.utils.to_categorical(y_train, num_classes=2)
-y_test = tf.keras.utils.to_categorical(y_test, num_classes=2)
-
 neural_network_predict(x_train, x_test, y_train, y_test,len(data_asset.feature))

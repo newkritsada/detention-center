@@ -29,7 +29,7 @@ def neural_network(XX,yy,shape):
     y_train = tf.keras.utils.to_categorical(y_train, num_classes=2)
     y_test = tf.keras.utils.to_categorical(y_test, num_classes=2)
     
-    accuracy_train, accuracy_test, predict, predict_len, training_time, testing_time = neural_network_predict(x_train, x_test, y_train, y_test, shape)
+    accuracy_train, accuracy_test, precision, recall, predict, predict_len, training_time, testing_time = neural_network_predict(x_train, x_test, y_train, y_test, shape)
 
     # print("\n",classification_report(y_test, predict))
     # print(confusion_matrix(y_test, predict))

@@ -18,7 +18,7 @@ def dicision_tree(XX,yy):
     x_train, x_test, y_train, y_test = train_test_split(
         XX, yy, test_size=0.3, random_state=45)
 
-    accuracy_train, accuracy_test, predict, predict_len, training_time, testing_time = dicision_tree_predict(x_train, x_test, y_train, y_test)
+    accuracy_train, accuracy_test, precision, recall, predict, predict_len, training_time, testing_time = dicision_tree_predict(x_train, x_test, y_train, y_test)
     
     print("\n",classification_report(y_test, predict))
     print(confusion_matrix(y_test, predict))
