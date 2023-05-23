@@ -13,9 +13,11 @@ data_trains = [DataExcept1(), DataExcept2(), DataExcept3(),
                DataExcept4(), DataExcept5()]
 data_tests = [data_frame1, data_frame2, data_frame3, data_frame4, data_frame5]
 
-results = []
+# results = []
 accuracy_train_sum = 0
 accuracy_test_sum = 0
+precision_sum = 0
+recall_sum = 0
 time_test_sum = 0
 
 for index, data_train in enumerate(data_trains):
@@ -30,19 +32,25 @@ for index, data_train in enumerate(data_trains):
 
     accuracy_train_sum += accuracy_train
     accuracy_test_sum += accuracy_test
+    precision_sum += precision
+    recall_sum += recall
     time_test_sum += testing_time
 
-    results.append({
-        'index': index,
-        'accuracy_train': accuracy_train,
-        'accuracy_test': accuracy_test,
-        'predict': predict,
-        'predict_len': predict_len
-    })
+    # results.append({
+    #     'index': index,
+    #     'accuracy_train': accuracy_train,
+    #     'accuracy_test': accuracy_test,
+    #     'predict': predict,
+    #     'predict_len': predict_len
+    # })
 
 
 print("\naccuracy train average is: {:.2f}%".format(
     accuracy_train_sum/len(data_tests)))
 print("accuracy test average is: {:.2f}%".format(
     accuracy_test_sum/len(data_tests)))
+print("precision test average is: {:.2f}%".format(
+    precision_sum/len(data_tests)))
+print("recall test average is: {:.2f}%".format(
+    recall_sum/len(data_tests)))
 print("Testing time:", time_test_sum)
