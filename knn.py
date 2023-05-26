@@ -15,4 +15,4 @@ yy = pd.DataFrame(data['ครั้งที่กระทำความผ�
 
 x_train, x_test, y_train, y_test = train_test_split(XX, yy, test_size=0.3, random_state=45)
 
-knn_predict(x_train, x_test, y_train, y_test)
+knn_predict(x_train, x_test, y_train, y_test,"")

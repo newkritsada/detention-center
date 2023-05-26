@@ -5,7 +5,7 @@ from data_asset import data_frame, feature, createDataSetFile
 import pandas as pd
 
 
-print('\n\n===== Feature selection =====\n\n')
+# print('\n\n===== Feature selection =====\n\n')
 
 
 def Chi(x, y):
@@ -43,9 +43,9 @@ x_new_chi = Chi(xx, yy)
 x_new_mutual = Mutual(xx, yy)
 x_new_recursive = Recursive(xx, yy)
 
-createDataSetFile(pd.DataFrame(x_new_chi),'chi.csv')
-createDataSetFile(pd.DataFrame(x_new_mutual),'mutual.csv')
-createDataSetFile(pd.DataFrame(x_new_recursive),'recursive.csv')
+# createDataSetFile(pd.DataFrame(x_new_chi),'chi-7.csv')
+# createDataSetFile(pd.DataFrame(x_new_mutual),'mutual-7.csv')
+# createDataSetFile(pd.DataFrame(x_new_recursive),'recursive-7.csv')
 
 XX_features = [
   {

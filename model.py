@@ -10,27 +10,9 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report
 
 
-def recall_m(y_true, y_pred):
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
-    recall = true_positives / (possible_positives + K.epsilon())
-    return recall
+def knn_predict(x_train, x_test, y_train, y_test, feature_name):
+    print('\n===== k-Nearest Neighbors =====\n')
 
-
-def precision_m(y_true, y_pred):
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
-    precision = true_positives / (predicted_positives + K.epsilon())
-    return precision
-
-
-def f1_m(y_true, y_pred):
-    precision = precision_m(y_true, y_pred)
-    recall = recall_m(y_true, y_pred)
-    return 2*((precision*recall)/(precision+recall+K.epsilon()))
-
-
-def knn_predict(x_train, x_test, y_train, y_test):
     y_train = np.ravel(y_train)
     knn = KNeighborsClassifier(n_neighbors=3)
 
@@ -59,6 +41,9 @@ def knn_predict(x_train, x_test, y_train, y_test):
     roc_auc = auc(fpr, tpr)
 
     # =============================
+    if len(feature_name) > 0:
+        print('\nFeature selection : {}'.format(feature_name))
+
     print('The accuracy training data is {:.2f}%'.format(accuracy_train))
     print('The accuracy on test data is {:.2f}%'.format(
         accuracy_test))
@@ -68,26 +53,19 @@ def knn_predict(x_train, x_test, y_train, y_test):
         recall))
 
     # print('Predictions: {}, {} data'.format(predict, predict_len))
-    print(classification_report(y_test, predictions))
+    print("\nClassification report\n",
+          classification_report(y_test, predictions))
 
-    print('\n')
+    # print('\n')
     print("Training time:", training_time)
     print("Testing time:", testing_time)
-
-    # ======== Graph ======
-    # # Plot the ROC curve
-    # plt.plot(fpr, tpr, label='ROC curve (AUC = %0.2f)' % roc_auc)
-    # plt.plot([0, 1], [0, 1], 'k--')  # Diagonal line
-    # plt.xlabel('False Positive Rate')
-    # plt.ylabel('True Positive Rate')
-    # plt.title('Receiver Operating Characteristic')
-    # plt.legend(loc='lower right')
-    # plt.show()
 
     return accuracy_train, accuracy_test, precision, recall, predict, predict_len, training_time, testing_time
 
 
-def dicision_tree_predict(x_train, x_test, y_train, y_test):
+def dicision_tree_predict(x_train, x_test, y_train, y_test, feature_name):
+    print('\n===== Dicision Tree =====\n')
+
     # Create tree object
     decision_tree = tree.DecisionTreeClassifier(criterion='gini')
 
@@ -109,7 +87,10 @@ def dicision_tree_predict(x_train, x_test, y_train, y_test):
     predict = predictions
     predict_len = len(predictions)
 
-    # Print performance
+    # =============================
+    if len(feature_name) > 0:
+        print('\nFeature selection : {}'.format(feature_name))
+
     print('The accuracy on training data is {:.2f}%'.format(accuracy_train))
     print('The accuracy on test data is {:.2f}%'.format(accuracy_test))
     print('The precision on test data is {:.2f}%'.format(
@@ -117,17 +98,17 @@ def dicision_tree_predict(x_train, x_test, y_train, y_test):
     print('The recall on test data is {:.2f}%'.format(
         recall))
 
-    # print('Predictions: {}, {} data'.format(predict, predict_len))
-    print(classification_report(y_test, predictions))
+    print("\nClassification report\n",
+          classification_report(y_test, predictions))
 
-    print('\n')
+    # print('\n')
     print("Training time:", training_time)
     print("Testing time:", testing_time)
 
     return accuracy_train, accuracy_test, precision, recall, predict, predict_len, training_time, testing_time
 
 
-def neural_network_predict(x_train, x_test, y_train, y_test, shape):
+def neural_network_predict(x_train, x_test, y_train, y_test, shape, feature_name):
 
     # # Reshape data for CNN
     x_train = x_train.values.reshape(-1, shape, 1)
@@ -153,7 +134,6 @@ def neural_network_predict(x_train, x_test, y_train, y_test, shape):
 
     model.fit(x_train, y_train, epochs=25, batch_size=64, verbose=2)
 
-
     end_train_time = time.time()
     training_time = end_train_time - start_train_time
 
@@ -171,7 +151,6 @@ def neural_network_predict(x_train, x_test, y_train, y_test, shape):
     end_test_time = time.time()
     testing_time = end_test_time - start_test_time
 
-
     accuracy_train = model.evaluate(x_train, y_train, verbose=0)[1]*100
     accuracy_test = model.evaluate(x_test, y_test_reshape, verbose=0)[1]*100
     precision = precision_score(y_test, new_predictions)*100
@@ -180,7 +159,11 @@ def neural_network_predict(x_train, x_test, y_train, y_test, shape):
     predict = predictions
     predict_len = len(predictions)
 
+    print('\n===== Neural Network =====\n')
     # =============================
+    if len(feature_name) > 0:
+        print('\nFeature selection : {}'.format(feature_name))
+
     print('\nThe accuracy of the Neural Network classifier on train data is = {:.2f}%'.format(
         accuracy_train))
     print('The accuracy of the Neural Network classifier on test data is = {:.2f}%'.format(
@@ -192,9 +175,10 @@ def neural_network_predict(x_train, x_test, y_train, y_test, shape):
 
     # Make predictions on test data
     # print('Predictions: {}, {} data'.format(predictions, len(predictions)))
-    print(classification_report(y_test, new_predictions))
+    print("\nClassification report\n",
+          classification_report(y_test, new_predictions))
 
-    print('\n')
+    # print('\n')
     print("Training time:", training_time)
     print("Testing time:", testing_time)
 

@@ -7,13 +7,12 @@ from data_asset import  data_frame1, data_frame2, data_frame3, data_frame4, data
 from model import knn_predict
 from feature_selection import feature_selections
 
-print('\n\n===== k-Nearest Neighbors (cross validate)=====\n\n')
 
 data_trains = [DataExcept1(), DataExcept2(), DataExcept3(),
                DataExcept4(), DataExcept5()]
 data_tests = [data_frame1, data_frame2, data_frame3, data_frame4, data_frame5]
 
-def cross_validate_knn(data_trains,data_tests,feature_function):
+def cross_validate_knn(data_trains,data_tests,feature_function,feature_name):
     accuracy_train_sum = 0
     accuracy_test_sum = 0
     precision_sum = 0
@@ -32,7 +31,7 @@ def cross_validate_knn(data_trains,data_tests,feature_function):
         x_test_new = feature_function(x_test, y_test)
 
         accuracy_train, accuracy_test, precision, recall, predict, predict_len, training_time, testing_time = knn_predict(
-            x_train_new, x_test_new, y_train, y_test)
+            x_train_new, x_test_new, y_train, y_test,feature_name)
 
         accuracy_train_sum += accuracy_train
         accuracy_test_sum += accuracy_test
@@ -40,6 +39,7 @@ def cross_validate_knn(data_trains,data_tests,feature_function):
         recall_sum += recall
         time_test_sum += testing_time
 
+    print('\n===== k-Nearest Neighbors (cross validate)=====\n')
 
     print("\naccuracy train average is: {:.2f}%".format(
         accuracy_train_sum/len(data_tests)))
@@ -52,6 +52,6 @@ def cross_validate_knn(data_trains,data_tests,feature_function):
     print("summary Testing time:", time_test_sum)
 
 for feature_selection in feature_selections:
-    print('=======================================')
-    print('\nFeature selection : {}'.format(feature_selection['feature_name']))
-    cross_validate_knn(data_trains,data_tests, feature_selection['feature_function'])
+    # print('=======================================')
+    # print('\nFeature selection : {}'.format(feature_selection['feature_name']))
+    cross_validate_knn(data_trains,data_tests, feature_selection['feature_function'],feature_selection['feature_name'])

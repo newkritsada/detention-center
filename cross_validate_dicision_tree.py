@@ -7,7 +7,6 @@ from data_asset import feature, data_frame1, data_frame2, data_frame3, data_fram
 from model import dicision_tree_predict
 
 
-print('\n\n===== Dicision Tree (cross validate)=====\n\n')
 
 data_trains = [DataExcept1(), DataExcept2(), DataExcept3(),
                DataExcept4(), DataExcept5()]
@@ -28,7 +27,7 @@ for index, data_train in enumerate(data_trains):
     x_test = pd.DataFrame(data_tests[index], columns=feature)
     y_test = pd.DataFrame(data_tests[index]['ครั้งที่กระทำความผิด'])
     accuracy_train, accuracy_test, precision, recall, predict, predict_len, training_time, testing_time = dicision_tree_predict(
-        x_train, x_test, y_train, y_test)
+        x_train, x_test, y_train, y_test,"")
 
     accuracy_train_sum += accuracy_train
     accuracy_test_sum += accuracy_test
@@ -44,6 +43,7 @@ for index, data_train in enumerate(data_trains):
     #     'predict_len': predict_len
     # })
 
+print('\n===== Dicision Tree (cross validate)=====\n')
 
 print("\naccuracy train average is: {:.2f}%".format(
     accuracy_train_sum/len(data_tests)))
