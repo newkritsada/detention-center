@@ -1,12 +1,4 @@
 import pandas as pd
-import os
-
-from sklearn import preprocessing
-
-le = preprocessing.LabelEncoder()
-
-outdir = './temp_data'
-original_file_name = 'original_dateset.csv'
 
 feature = [
     'ฐานความผิดหลัก',
@@ -30,66 +22,40 @@ feature = [
 #     "Need",
 # ]
 
-data_frame_convert = [
-    'ฐานความผิดหลัก',
-    'ฐานความผิดข้อหา',
-    'ครั้งที่กระทำความผิด',  # target
-    'อัตราโทษ',
-    'กลุ่มASSIST',
-    'SPECIAL_RN',
-]
+data_path = "./temp_data/"
+# data_path = "../Data/clean/smote/"
+data_file = "clean.csv"
+# data_file = "smote_data.csv"
 
-# data_frame_smote_convert = [
-#     'SPECIAL_RN',
-# ]
-
-data_frame_split_convert = [
-    'SPECIAL_RN',
-]
-
-
-
-# clean data
-data_frame = pd.read_csv("../Data/clean/clean.csv", encoding="TIS-620")
-# data_frame = pd.read_csv("../Data/clean/smote/smote_data.csv", encoding="TIS-620")
-for col in data_frame.loc[:, data_frame_convert]:
-    data_frame[col] = le.fit_transform(data_frame[col])
+data_frame = pd.read_csv(data_path+data_file, encoding="utf-8")
+#==================================
 
 # clean and balance data
-data_frame1 = pd.read_csv(
-    "../Data/clean/split_under_data/under_01.csv", encoding="TIS-620")
-# data_frame1 = pd.read_csv(
-#     "../Data/clean/smote/split_data/smote01.csv", encoding="TIS-620")
-for col in data_frame1.loc[:, data_frame_split_convert]:
-    data_frame1[col] = le.fit_transform(data_frame1[col])
+data_path_split = "./temp_data/split_data/"
 
-data_frame2 = pd.read_csv(
-    "../Data/clean/split_under_data/under_02.csv", encoding="TIS-620")
-# data_frame2 = pd.read_csv(
-#     "../Data/clean/smote/split_data/smote02.csv", encoding="TIS-620")
-for col in data_frame2.loc[:, data_frame_split_convert]:
-    data_frame2[col] = le.fit_transform(data_frame2[col])
+data_file_1 = "under_01.csv"
+data_file_2 = "under_02.csv"
+data_file_3 = "under_03.csv"
+data_file_4 = "under_04.csv"
+data_file_5 = "under_05.csv"
 
-data_frame3 = pd.read_csv(
-    "../Data/clean/split_under_data/under_03.csv", encoding="TIS-620")
-# data_frame3 = pd.read_csv(
-#     "../Data/clean/smote/split_data/smote03.csv", encoding="TIS-620")
-for col in data_frame3.loc[:, data_frame_split_convert]:
-    data_frame3[col] = le.fit_transform(data_frame3[col])
+##### Smote
+# data_file_1 = "SMOTE1.csv"
+# data_file_2 = "SMOTE2.csv"
+# data_file_3 = "SMOTE3.csv"
+# data_file_4 = "SMOTE4.csv"
+# data_file_5 = "SMOTE5.csv"
 
-data_frame4 = pd.read_csv(
-    "../Data/clean/split_under_data/under_04.csv", encoding="TIS-620")
-# data_frame4 = pd.read_csv(
-#     "../Data/clean/smote/split_data/smote04.csv", encoding="TIS-620")
-for col in data_frame4.loc[:, data_frame_split_convert]:
-    data_frame4[col] = le.fit_transform(data_frame4[col])
+data_frame1 = pd.read_csv(data_path_split + data_file_1, encoding="utf-8") # "TIS-620"
+#==================================
+data_frame2 = pd.read_csv(data_path_split + data_file_2, encoding="utf-8")
+#==================================
+data_frame3 = pd.read_csv(data_path_split + data_file_3, encoding="utf-8")
+#==================================
+data_frame4 = pd.read_csv(data_path_split + data_file_4, encoding="utf-8")
+#==================================
+data_frame5 = pd.read_csv(data_path_split + data_file_5, encoding="utf-8")
 
-data_frame5 = pd.read_csv(
-    "../Data/clean/split_under_data/under_05.csv", encoding="TIS-620")
-# data_frame5 = pd.read_csv(
-#     "../Data/clean/smote/split_data/smote05.csv", encoding="TIS-620")
-for col in data_frame5.loc[:, data_frame_split_convert]:
-    data_frame5[col] = le.fit_transform(data_frame5[col])
 
 #column = CMST_CASE_JUVENILE_REF, ฐานความผิดหลัก, ฐานความผิดข้อหา, ครั้งที่กระทำความผิด, อายุขณะกระทำความผิด, อัตราโทษ, กลุ่มASSIST, Risk, Need, SPECIAL_RN
 
@@ -112,14 +78,3 @@ def DataExcept4():
 
 def DataExcept5():
     return pd.concat([data_frame1, data_frame2, data_frame3, data_frame4])
-
-
-def createDataSetFile(data,file_name):
-    if not os.path.exists(outdir):
-        os.mkdir(outdir)
-    data.loc[:, ].to_csv(
-        '{}/{}'.format(outdir, file_name), index=False)
-
-
-
-createDataSetFile(data_frame5,original_file_name)

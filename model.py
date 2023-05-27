@@ -33,13 +33,6 @@ def knn_predict(x_train, x_test, y_train, y_test, feature_name):
     predict = predictions
     predict_len = len(predictions)
 
-    y_scores = knn.predict_proba(x_test)[:, 1]
-    # Compute the false positive rate (FPR), true positive rate (TPR), and thresholds
-    fpr, tpr, thresholds = roc_curve(y_test, y_scores)
-
-    # Calculate the AUC (Area Under the Curve)
-    roc_auc = auc(fpr, tpr)
-
     # =============================
     if len(feature_name) > 0:
         print('\nFeature selection : {}'.format(feature_name))
@@ -111,8 +104,8 @@ def dicision_tree_predict(x_train, x_test, y_train, y_test, feature_name):
 def neural_network_predict(x_train, x_test, y_train, y_test, shape, feature_name):
 
     # # Reshape data for CNN
-    x_train = x_train.values.reshape(-1, shape, 1)
-    x_test = x_test.values.reshape(-1, shape, 1)
+    # x_train = x_train.values.reshape(-1, shape, 1)
+    # x_test = x_test.values.reshape(-1, shape, 1)
 
     # # Convert labels to one-hot encoding
     y_train = tf.keras.utils.to_categorical(y_train, num_classes=2)
